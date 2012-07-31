@@ -30,6 +30,8 @@ import org.mariotaku.twidere.provider.TweetStore.Statuses;
 
 public interface Constants {
 
+	public static final String LOGTAG = "Twidere";
+
 	public static final String SCHEME_HTTP = "http";
 	public static final String SCHEME_HTTPS = "https";
 	public static final String SCHEME_CONTENT = "content";
@@ -59,6 +61,7 @@ public interface Constants {
 	public static final String AUTHORITY_LIST_CREATED = "list_created";
 	public static final String AUTHORITY_LIST_SUBSCRIPTIONS = "list_subscriptions";
 	public static final String AUTHORITY_LIST_MEMBERSHIPS = "list_memberships";
+	public static final String AUTHORITY_USERS_RETWEETED_STATUS = "users_retweeted_status";
 
 	public static final String QUERY_PARAM_ACCOUNT_ID = "account_id";
 	public static final String QUERY_PARAM_ACCOUNT_NAME = "account_name";
@@ -164,7 +167,9 @@ public interface Constants {
 	public static final String INTENT_ACTION_EXTENSION_UPLOAD = INTENT_PACKAGE_PREFIX + "EXTENSION_UPLOAD";
 	public static final String INTENT_ACTION_EXTENSION_OPEN_STATUS = INTENT_PACKAGE_PREFIX + "EXTENSION_OPEN_STATUS";
 	public static final String INTENT_ACTION_EXTENSION_OPEN_USER = INTENT_PACKAGE_PREFIX + "EXTENSION_OPEN_USER";
-	public static final String INTENT_ACTION_EXTENSION_OPEN_USER_LIST = INTENT_PACKAGE_PREFIX + "EXTENSION_OPEN_USER_LIST";
+	public static final String INTENT_ACTION_EXTENSION_OPEN_USER_LIST = INTENT_PACKAGE_PREFIX
+			+ "EXTENSION_OPEN_USER_LIST";
+	public static final String INTENT_ACTION_EXTENSION_COMPOSE = INTENT_PACKAGE_PREFIX + "EXTENSION_COMPOSE";
 	public static final String INTENT_ACTION_EXTENSION_SETTINGS = INTENT_PACKAGE_PREFIX + "EXTENSION_SETTINGS";
 
 	public static final String BROADCAST_HOME_TIMELINE_DATABASE_UPDATED = INTENT_PACKAGE_PREFIX
@@ -240,6 +245,7 @@ public interface Constants {
 	public static final String INTENT_KEY_IS_PUBLIC = "is_public";
 	public static final String INTENT_KEY_USER = "user";
 	public static final String INTENT_KEY_USER_LIST = "user_list";
+	public static final String INTENT_KEY_APPEND_TEXT = "append_text";
 
 	public static final int REQUEST_TAKE_PHOTO = 1;
 	public static final int REQUEST_PICK_IMAGE = 2;
@@ -249,6 +255,8 @@ public interface Constants {
 	public static final int REQUEST_GOTO_AUTHORIZATION = 6;
 	public static final int REQUEST_SET_COLOR = 7;
 	public static final int REQUEST_SAVE_FILE = 8;
+	public static final int REQUEST_EXTENSION_EDIT_IMAGE = 9;
+	public static final int REQUEST_EXTENSION_COMPOSE = 10;
 
 	public static final int RESULT_UNKNOWN_ERROR = -1;
 	public static final int RESULT_SUCCESS = 0;

@@ -23,13 +23,14 @@ import static org.mariotaku.twidere.util.HtmlUnescapeHelper.unescapeHTML;
 import static org.mariotaku.twidere.util.Utils.parseURL;
 
 import java.net.URL;
+import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
 import android.text.Spanned;
 
-public final class ParcelableStatus implements Parcelable {
+public class ParcelableStatus implements Parcelable {
 
 	public static final Parcelable.Creator<ParcelableStatus> CREATOR = new Parcelable.Creator<ParcelableStatus>() {
 		@Override
@@ -46,7 +47,7 @@ public final class ParcelableStatus implements Parcelable {
 	public final long retweet_id, retweeted_by_id, status_id, account_id, user_id, status_timestamp, retweet_count,
 			in_reply_to_status_id;
 
-	public final boolean is_gap, is_retweet, is_favorite, is_protected, has_media;
+	public final boolean is_gap, is_retweet, is_favorite, is_protected, is_verified, has_media;
 
 	public final String retweeted_by_name, retweeted_by_screen_name, text_html, text_plain, name, screen_name,
 			in_reply_to_screen_name, source, profile_image_url_string, image_preview_url_string, location_string;
@@ -55,6 +56,28 @@ public final class ParcelableStatus implements Parcelable {
 	public final Spanned text;
 
 	public final URL profile_image_url, image_preview_url;
+
+	public static final Comparator<ParcelableStatus> TIMESTAMP_COMPARATOR = new Comparator<ParcelableStatus>() {
+
+		@Override
+		public int compare(ParcelableStatus object1, ParcelableStatus object2) {
+			final long diff = object2.status_timestamp - object1.status_timestamp;
+			if (diff > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+			if (diff < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+			return (int) diff;
+		}
+	};
+
+	public static final Comparator<ParcelableStatus> STATUS_ID_COMPARATOR = new Comparator<ParcelableStatus>() {
+
+		@Override
+		public int compare(ParcelableStatus object1, ParcelableStatus object2) {
+			final long diff = object2.status_id - object1.status_id;
+			if (diff > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+			if (diff < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+			return (int) diff;
+		}
+	};
 
 	public ParcelableStatus(Parcel in) {
 		retweet_id = in.readLong();
@@ -69,6 +92,7 @@ public final class ParcelableStatus implements Parcelable {
 		is_retweet = in.readInt() == 1;
 		is_favorite = in.readInt() == 1;
 		is_protected = in.readInt() == 1;
+		is_verified = in.readInt() == 1;
 		has_media = in.readInt() == 1;
 		retweeted_by_name = in.readString();
 		retweeted_by_screen_name = in.readString();
@@ -112,6 +136,7 @@ public final class ParcelableStatus implements Parcelable {
 		out.writeInt(is_retweet ? 1 : 0);
 		out.writeInt(is_favorite ? 1 : 0);
 		out.writeInt(is_protected ? 1 : 0);
+		out.writeInt(is_verified ? 1 : 0);
 		out.writeInt(has_media ? 1 : 0);
 		out.writeString(retweeted_by_name);
 		out.writeString(retweeted_by_screen_name);

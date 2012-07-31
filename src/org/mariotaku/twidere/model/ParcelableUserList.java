@@ -22,11 +22,12 @@ package org.mariotaku.twidere.model;
 import static org.mariotaku.twidere.util.Utils.parseURL;
 
 import java.net.URL;
+import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class ParcelableUserList implements Parcelable {
+public class ParcelableUserList implements Parcelable {
 
 	public static final Parcelable.Creator<ParcelableUserList> CREATOR = new Parcelable.Creator<ParcelableUserList>() {
 		@Override
@@ -49,6 +50,17 @@ public final class ParcelableUserList implements Parcelable {
 	public final String description, name, user_screen_name, user_name, user_profile_image_url_string;
 
 	public URL user_profile_image_url;
+
+	public static final Comparator<ParcelableUserList> POSITION_COMPARATOR = new Comparator<ParcelableUserList>() {
+
+		@Override
+		public int compare(ParcelableUserList object1, ParcelableUserList object2) {
+			final long diff = object1.position - object2.position;
+			if (diff > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+			if (diff < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+			return (int) diff;
+		}
+	};
 
 	public ParcelableUserList(Parcel in) {
 		position = in.readLong();

@@ -22,11 +22,12 @@ package org.mariotaku.twidere.model;
 import static org.mariotaku.twidere.util.Utils.parseURL;
 
 import java.net.URL;
+import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class ParcelableUser implements Parcelable {
+public class ParcelableUser implements Parcelable {
 
 	public static final Parcelable.Creator<ParcelableUser> CREATOR = new Parcelable.Creator<ParcelableUser>() {
 		@Override
@@ -42,11 +43,22 @@ public final class ParcelableUser implements Parcelable {
 
 	public final long account_id, user_id, created_at, position;
 
-	public final boolean is_protected;
+	public final boolean is_protected, is_verified;
 
 	public final String description, name, screen_name, location, profile_image_url_string;
 
 	public URL profile_image_url;
+
+	public static final Comparator<ParcelableUser> POSITION_COMPARATOR = new Comparator<ParcelableUser>() {
+
+		@Override
+		public int compare(ParcelableUser object1, ParcelableUser object2) {
+			final long diff = object1.position - object2.position;
+			if (diff > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+			if (diff < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+			return (int) diff;
+		}
+	};
 
 	public ParcelableUser(Parcel in) {
 		position = in.readLong();
@@ -54,6 +66,7 @@ public final class ParcelableUser implements Parcelable {
 		user_id = in.readLong();
 		created_at = in.readLong();
 		is_protected = in.readInt() == 1;
+		is_verified = in.readInt() == 1;
 		name = in.readString();
 		screen_name = in.readString();
 		description = in.readString();
@@ -79,6 +92,7 @@ public final class ParcelableUser implements Parcelable {
 		out.writeLong(user_id);
 		out.writeLong(created_at);
 		out.writeInt(is_protected ? 1 : 0);
+		out.writeInt(is_verified ? 1 : 0);
 		out.writeString(name);
 		out.writeString(screen_name);
 		out.writeString(description);

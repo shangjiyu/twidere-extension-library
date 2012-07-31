@@ -20,11 +20,12 @@
 package org.mariotaku.twidere.model;
 
 import java.net.URL;
+import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class ParcelableDirectMessage implements Parcelable {
+public class ParcelableDirectMessage implements Parcelable {
 
 	public static final Parcelable.Creator<ParcelableDirectMessage> CREATOR = new Parcelable.Creator<ParcelableDirectMessage>() {
 		@Override
@@ -35,6 +36,17 @@ public final class ParcelableDirectMessage implements Parcelable {
 		@Override
 		public ParcelableDirectMessage[] newArray(int size) {
 			return new ParcelableDirectMessage[size];
+		}
+	};
+
+	public static final Comparator<ParcelableDirectMessage> MESSAGE_ID_COMPARATOR = new Comparator<ParcelableDirectMessage>() {
+
+		@Override
+		public int compare(ParcelableDirectMessage object1, ParcelableDirectMessage object2) {
+			final long diff = object2.message_id - object1.message_id;
+			if (diff > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+			if (diff < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+			return (int) diff;
 		}
 	};
 
@@ -90,5 +102,4 @@ public final class ParcelableDirectMessage implements Parcelable {
 		out.writeSerializable(sender_profile_image_url);
 		out.writeSerializable(recipient_profile_image_url);
 	}
-
 }
