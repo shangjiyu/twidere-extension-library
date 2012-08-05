@@ -50,7 +50,8 @@ public class ParcelableStatus implements Parcelable {
 	public final boolean is_gap, is_retweet, is_favorite, is_protected, is_verified, has_media;
 
 	public final String retweeted_by_name, retweeted_by_screen_name, text_html, text_plain, name, screen_name,
-			in_reply_to_screen_name, source, profile_image_url_string, image_preview_url_string, location_string;
+			in_reply_to_screen_name, source, profile_image_url_string, image_preview_url_string, image_orig_url_string,
+			location_string;
 	public final ParcelableLocation location;
 
 	public final Spanned text;
@@ -104,6 +105,7 @@ public class ParcelableStatus implements Parcelable {
 		source = in.readString();
 		profile_image_url_string = in.readString();
 		image_preview_url_string = in.readString();
+		image_orig_url_string = in.readString();
 		location_string = in.readString();
 		location = new ParcelableLocation(location_string);
 		image_preview_url = parseURL(image_preview_url_string);
@@ -148,6 +150,7 @@ public class ParcelableStatus implements Parcelable {
 		out.writeString(source);
 		out.writeString(profile_image_url_string);
 		out.writeString(image_preview_url_string);
+		out.writeString(image_orig_url_string);
 		out.writeString(location_string);
 	}
 }
