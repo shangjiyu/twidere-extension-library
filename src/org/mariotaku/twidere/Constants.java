@@ -30,7 +30,9 @@ import org.mariotaku.twidere.provider.TweetStore.Statuses;
 
 public interface Constants {
 
-	public static final String LOGTAG = "Twidere";
+	public static final String APP_NAME = "Twidere";
+	
+	public static final String LOGTAG = APP_NAME;
 
 	public static final String SCHEME_HTTP = "http";
 	public static final String SCHEME_HTTPS = "https";
@@ -62,6 +64,12 @@ public interface Constants {
 	public static final String AUTHORITY_LIST_SUBSCRIPTIONS = "list_subscriptions";
 	public static final String AUTHORITY_LIST_MEMBERSHIPS = "list_memberships";
 	public static final String AUTHORITY_USERS_RETWEETED_STATUS = "users_retweeted_status";
+	public static final String AUTHORITY_SAVED_SEARCHES = "saved_searches";
+	public static final String AUTHORITY_RETWEETED_TO_ME = "retweeted_to_me";
+	public static final String AUTHORITY_SEARCH_USERS = "search_users";
+	public static final String AUTHORITY_SEARCH_TWEETS = "search_tweets";
+	public static final String AUTHORITY_DIRECT_MESSAGES = "direct_messages";
+	public static final String AUTHORITY_TRENDS = "trends";
 
 	public static final String QUERY_PARAM_ACCOUNT_ID = "account_id";
 	public static final String QUERY_PARAM_ACCOUNT_NAME = "account_name";
@@ -86,6 +94,11 @@ public interface Constants {
 	public static final String SHUFFIX_SCROLL_TO_TOP = ".SCROLL_TO_TOP";
 
 	public static final String OAUTH_VERIFIER = "oauth_verifier";
+
+	public static final String FORMAT_PATTERN_TITLE = "[TITLE]";
+	public static final String FORMAT_PATTERN_TEXT = "[TEXT]";
+	public static final String FORMAT_PATTERN_NAME = "[NAME]";
+	public static final String FORMAT_PATTERN_LINK = "[LINK]";
 
 	public static final String SHARED_PREFERENCES_NAME = "preferences";
 
@@ -129,20 +142,31 @@ public interface Constants {
 	public static final String PREFERENCE_KEY_NOTIFICATION_ENABLE_HOME_TIMELINE = "notification_enable_home_timeline";
 	public static final String PREFERENCE_KEY_NOTIFICATION_ENABLE_MENTIONS = "notification_enable_mentions";
 	public static final String PREFERENCE_KEY_NOTIFICATION_ENABLE_DIRECT_MESSAGES = "notification_enable_direct_messages";
-	public static final String PREFERENCE_KEY_NOTIFICATIONS_HAVE_SOUND = "notifications_have_sound";
-	public static final String PREFERENCE_KEY_NOTIFICATIONS_HAVE_VIBRATION = "notifications_have_vibration";
-	public static final String PREFERENCE_KEY_NOTIFICATIONS_HAVE_LIGHTS = "notifications_have_lights";
+	public static final String PREFERENCE_KEY_NOTIFICATION_HAVE_SOUND = "notification_have_sound";
+	public static final String PREFERENCE_KEY_NOTIFICATION_HAVE_VIBRATION = "notification_have_vibration";
+	public static final String PREFERENCE_KEY_NOTIFICATION_HAVE_LIGHTS = "notification_have_lights";
 	public static final String PREFERENCE_KEY_REPORT_ERRORS_AUTOMATICALLY = "report_errors_automatically";
 	public static final String PREFERENCE_KEY_LOCAL_TRENDS_WOEID = "local_trends_woeid";
 	public static final String PREFERENCE_KEY_HIRES_PROFILE_IMAGE = "hires_profile_image";
-	public static final String PREFERENCE_KEY_FORCE_SSL_CONNECTION = "force_ssl_connection";
+	public static final String PREFERENCE_KEY_NOTIFICATION_RINGTONE = "notification_ringtone";
+	public static final String PREFERENCE_KEY_NOTIFICATION_LIGHT_COLOR = "notification_light_color";
+	public static final String PREFERENCE_KEY_SKIP_IMAGE_PREVIEW_PROCESSING = "skip_image_preview_processing";
+	public static final String PREFERENCE_KEY_SHARE_FORMAT = "share_format";
+	public static final String PREFERENCE_KEY_IMAGE_UPLOADER = "image_uploader";
+	public static final String PREFERENCE_KEY_HOME_REFRESH_MENTIONS = "home_refresh_mentions";
+	public static final String PREFERENCE_KEY_HOME_REFRESH_DIRECT_MESSAGES = "home_refresh_direct_messages";
+	public static final String PREFERENCE_KEY_IMAGE_UPLOAD_FORMAT = "image_upload_format";
+	public static final String PREFERENCE_KEY_TWEET_SHORTENER = "tweet_shortener";
+	public static final String PREFERENCE_KEY_SHOW_ABSOLUTE_TIME = "show_absolute_time";
 
-	public static final String PREFERENCE_DEFAULT_QUOTE_FORMAT = "RT [TEXT]";
+	public static final String PREFERENCE_DEFAULT_QUOTE_FORMAT = "RT @" + FORMAT_PATTERN_NAME + ": "
+			+ FORMAT_PATTERN_TEXT;
+	public static final String PREFERENCE_DEFAULT_SHARE_FORMAT = FORMAT_PATTERN_TITLE + " - " + FORMAT_PATTERN_TEXT;
+	public static final String PREFERENCE_DEFAULT_IMAGE_UPLOAD_FORMAT = FORMAT_PATTERN_TEXT + " " + FORMAT_PATTERN_LINK;
+
 	public static final int PREFERENCE_DEFAULT_DATABASE_ITEM_LIMIT = 100;
 	public static final int PREFERENCE_DEFAULT_LOAD_ITEM_LIMIT = 20;
 	public static final float PREFERENCE_DEFAULT_TEXT_SIZE = 14.0f;
-
-	public static final String QUOTE_FORMAT_TEXT_PATTERN = "[TEXT]";
 
 	public static final String INTENT_PACKAGE_PREFIX = "org.mariotaku.twidere.";
 
@@ -158,10 +182,13 @@ public interface Constants {
 	public static final String INTENT_ACTION_SET_COLOR = INTENT_PACKAGE_PREFIX + "SET_COLOR";
 	public static final String INTENT_ACTION_TWITTER_LOGIN = INTENT_PACKAGE_PREFIX + "TWITTER_LOGIN";
 	public static final String INTENT_ACTION_DRAFTS = INTENT_PACKAGE_PREFIX + "DRAFTS";
-	public static final String INTENT_ACTION_DIRECT_MESSAGES = INTENT_PACKAGE_PREFIX + "DIRECT_MESSAGES";
 	public static final String INTENT_ACTION_SAVE_FILE = INTENT_PACKAGE_PREFIX + "SAVE_FILE";
+	public static final String INTENT_ACTION_PICK_FILE = INTENT_PACKAGE_PREFIX + "PICK_FILE";
 	public static final String INTENT_ACTION_VIEW_WEBPAGE = INTENT_PACKAGE_PREFIX + "VIEW_WEBPAGE";
 	public static final String INTENT_ACTION_EXTENSIONS = INTENT_PACKAGE_PREFIX + "EXTENSIONS";
+	public static final String INTENT_ACTION_CUSTOM_TABS = INTENT_PACKAGE_PREFIX + "CUSTOM_TABS";
+	public static final String INTENT_ACTION_NEW_CUSTOM_TAB = INTENT_PACKAGE_PREFIX + "NEW_CUSTOM_TAB";
+	public static final String INTENT_ACTION_EDIT_CUSTOM_TAB = INTENT_PACKAGE_PREFIX + "EDIT_CUSTOM_TAB";
 
 	public static final String INTENT_ACTION_EXTENSION_EDIT_IMAGE = INTENT_PACKAGE_PREFIX + "EXTENSION_EDIT_IMAGE";
 	public static final String INTENT_ACTION_EXTENSION_UPLOAD = INTENT_PACKAGE_PREFIX + "EXTENSION_UPLOAD";
@@ -170,6 +197,9 @@ public interface Constants {
 	public static final String INTENT_ACTION_EXTENSION_OPEN_USER_LIST = INTENT_PACKAGE_PREFIX
 			+ "EXTENSION_OPEN_USER_LIST";
 	public static final String INTENT_ACTION_EXTENSION_COMPOSE = INTENT_PACKAGE_PREFIX + "EXTENSION_COMPOSE";
+	public static final String INTENT_ACTION_EXTENSION_UPLOAD_IMAGE = INTENT_PACKAGE_PREFIX + "EXTENSION_UPLOAD_IMAGE";
+	public static final String INTENT_ACTION_EXTENSION_SHORTEN_TWEET = INTENT_PACKAGE_PREFIX
+			+ "EXTENSION_SHORTEN_TWEET";
 	public static final String INTENT_ACTION_EXTENSION_SETTINGS = INTENT_PACKAGE_PREFIX + "EXTENSION_SETTINGS";
 
 	public static final String BROADCAST_HOME_TIMELINE_DATABASE_UPDATED = INTENT_PACKAGE_PREFIX
@@ -190,6 +220,7 @@ public interface Constants {
 			+ "USER_LIST_DETAILS_UPDATED";
 	public static final String BROADCAST_DATABASE_UPDATED = INTENT_PACKAGE_PREFIX + "DATABASE_UPDATED";
 	public static final String BROADCAST_FAVORITE_CHANGED = INTENT_PACKAGE_PREFIX + "FAVORITE_CHANGED";
+	public static final String BROADCAST_RETWEET_CHANGED = INTENT_PACKAGE_PREFIX + "RETWEET_CHANGED";
 	public static final String BROADCAST_RECEIVED_DIRECT_MESSAGES_REFRESHED = INTENT_PACKAGE_PREFIX
 			+ "RECEIVED_DIRECT_MESSAGES_REFRESHED";
 	public static final String BROADCAST_SENT_DIRECT_MESSAGES_REFRESHED = INTENT_PACKAGE_PREFIX
@@ -205,6 +236,8 @@ public interface Constants {
 			+ "USER_LIST_SUBSCRIPTION_CHANGED";
 	public static final String BROADCAST_USER_LIST_CREATED = INTENT_PACKAGE_PREFIX + "USER_LIST_CREATED";
 	public static final String BROADCAST_USER_LIST_DELETED = INTENT_PACKAGE_PREFIX + "USER_LIST_DELETED";
+	public static final String BROADCAST_TABS_UPDATED = INTENT_PACKAGE_PREFIX + "TABS_UPDATED";
+	public static final String BROADCAST_AUTO_REFRESH = INTENT_PACKAGE_PREFIX + "AUTO_REFRESH";
 
 	public static final String INTENT_KEY_LATITUDE = "latitude";
 	public static final String INTENT_KEY_LONGITUDE = "longitude";
@@ -236,8 +269,10 @@ public interface Constants {
 	public static final String INTENT_KEY_IS_SHARE = "is_share";
 	public static final String INTENT_KEY_STATUS = "status";
 	public static final String INTENT_KEY_FAVORITED = "favorited";
+	public static final String INTENT_KEY_RETWEETED = "retweeted";
 	public static final String INTENT_KEY_FILENAME = "filename";
 	public static final String INTENT_KEY_FILE_SOURCE = "file_source";
+	public static final String INTENT_KEY_FILE_EXTENSIONS = "file_extensions";
 	public static final String INTENT_KEY_ITEMS_INSERTED = "items_inserted";
 	public static final String INTENT_KEY_INITIAL_TAB = "initial_tab";
 	public static final String INTENT_KEY_NOTIFICATION_ID = "notification_id";
@@ -246,6 +281,14 @@ public interface Constants {
 	public static final String INTENT_KEY_USER = "user";
 	public static final String INTENT_KEY_USER_LIST = "user_list";
 	public static final String INTENT_KEY_APPEND_TEXT = "append_text";
+	public static final String INTENT_KEY_NAME = "name";
+	public static final String INTENT_KEY_TEXT1 = "text1";
+	public static final String INTENT_KEY_TEXT2 = "text2";
+	public static final String INTENT_KEY_POSITION = "position";
+	public static final String INTENT_KEY_ARGUMENTS = "arguments";
+	public static final String INTENT_KEY_ICON = "icon";
+	public static final String INTENT_KEY_ID = "id";
+	public static final String INTENT_KEY_RESID = "resid";
 
 	public static final int REQUEST_TAKE_PHOTO = 1;
 	public static final int REQUEST_PICK_IMAGE = 2;
@@ -305,4 +348,6 @@ public interface Constants {
 	public static final int NOTIFICATION_ID_HOME_TIMELINE = 1;
 	public static final int NOTIFICATION_ID_MENTIONS = 2;
 	public static final int NOTIFICATION_ID_DIRECT_MESSAGES = 3;
+
+	public static final String ICON_SPECIAL_TYPE_CUSTOMIZE = "_customize";
 }
